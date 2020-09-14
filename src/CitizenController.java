@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+=======
+import java.util.Date;
+>>>>>>> 6527e55c466a827f1530eb38d7a48b85be7d27b4
 
 abstract public class CitizenController {
     Date birthDate;
     String name;
+<<<<<<< HEAD
     Duration age; // will be calculated at each tick
 
     CitizenController(String name, int yearOfBirth, int monthOfBirth , int dayOfBirth){
@@ -30,4 +35,12 @@ abstract public class CitizenController {
         this.age= Duration.ofSeconds(diff);
     return (int) this.age.toDays();
     }
+=======
+
+    CitizenController(Date birthDate, String name){
+        this.birthDate=birthDate;
+        this.name=name;
+    }
+
+>>>>>>> 6527e55c466a827f1530eb38d7a48b85be7d27b4
 }
