@@ -15,12 +15,15 @@ abstract public class CitizenController {
         this.name=name;
     }
 
-    void ontick(){ // will be called from  Utopia controller each time there is a tick ...
+    abstract public void onTick(); // user must @Override this method. It will be called from the parent method via "this.onTick()"
+
+    final public void ontick(){ // will be called from  Utopia controller each time there is a tick ...
 
         // calculate the age of the citizen on every tick -> is probably not necessary
         long diffInMillies = Math.abs(Main.myController.getUtopiaTime().getTime() - birthDate.getTime());
         long diff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS); // represents the seconds between start of the program and now.
         this.age= Duration.ofSeconds(diff);
+        this.onTick();
 
     }
 
