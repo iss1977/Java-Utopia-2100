@@ -13,6 +13,7 @@ abstract public class CitizenController {
         calendar.set(yearOfBirth, monthOfBirth, dayOfBirth, 0, 0, 0);
         this.birthDate=calendar.getTime();
         this.name=name;
+        this.ontick();
     }
 
     abstract public void onTick(); // user must @Override this method. It will be called from the parent method via "this.onTick()"
@@ -32,5 +33,13 @@ abstract public class CitizenController {
         long diff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS); // represents the seconds between start of the program and now.
         this.age= Duration.ofSeconds(diff);
     return (int) this.age.toDays();
+    }
+
+    @Override
+     final public String toString() {
+        return "{Name='" + name + '\'' +
+                "birthDate=" + birthDate +
+                ", age =" + (int)this.age.toDaysPart()/365 +
+                '}';
     }
 }

@@ -30,7 +30,13 @@ public class Controller{
             this.doActivity(GlobalStacker.registeredActivities.get(1),Main.myCitizen);
         }
 
-        Main.myCitizen.ontick(); // modify here to make a list of citizens. Is not known yet if myCitizen will need ontick() or not, but is available.
+        // let's tick every citizen
+        for (Citizen citizen: GlobalStacker.registredCitizens) {
+            citizen.ontick();
+        }
+
+
+
     } //  end of tick()
 
     public boolean cycle()  { // this can be run as many times as wished. If a complete second is passed since last tick(), then a new tick() is called
@@ -41,7 +47,7 @@ public class Controller{
         if (diff!=this.lastUpdateAtSecond){
             this.lastUpdateAtSecond=diff;
             this.utopiaTime = GlobalStacker.addSecondsToJavaUtilDate(calendar.getTime(),(int) (diff * GlobalStacker.oneSecondOnEarthEqualsThisManySecondsOnUtopia));
-            System.out.println("Calling a new tick! Utopia is running since:"+diff+" earth seconds. Time on Utopia is now:"+this.utopiaTime.toString());
+            System.out.println("\r\nCalling a new tick! Utopia is running since:"+diff+" earth seconds. Time on Utopia is now:"+this.utopiaTime.toString());
             this.tick(); // here happens everything.
         }
     return GlobalStacker.utopiaIsRunning;
@@ -51,6 +57,12 @@ public class Controller{
     public Integer registerActivity(ActivityBlueprint activity){ // the activity will be stored in GlobalStacker \\
         GlobalStacker.registeredActivities.put(++GlobalStacker.numberOfRegisteredActivities, activity);
         return GlobalStacker.numberOfRegisteredActivities;
+    }
+
+    // call this method to register a citizen (add it to ArrayList GlobalStacker.registredCitizens )
+    public void registerCitizen(Citizen citizen){
+        GlobalStacker.registredCitizens.add(citizen);
+        System.out.println("The Citizen "+citizen.toString()+" was registered.");
     }
 
 

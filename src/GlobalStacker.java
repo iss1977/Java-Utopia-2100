@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ public class GlobalStacker {  // this is a collection of methods and variables a
     // The registered activities are stored in a hashmap
     public static HashMap<Integer,ActivityBlueprint> registeredActivities=new HashMap<Integer, ActivityBlueprint>();
 
+    // The registered citizens are stored in an ArrayList. The controller will access this directly
+    public static ArrayList<Citizen> registredCitizens = new ArrayList<Citizen>();
 
 
     // call this to Stop Utopia - current actions will complete first. Ex: citizen.onTick() events.
