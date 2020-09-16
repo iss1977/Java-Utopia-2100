@@ -1,7 +1,6 @@
 import java.util.Date;
 
 public class Citizen extends CitizenController {
-<<<<<<< HEAD
     Citizen(String name, int yearOfBirth, int monthOfBirth , int dayOfBirth) {
         super (name, yearOfBirth, monthOfBirth , dayOfBirth);
     }
