@@ -18,14 +18,18 @@ abstract public class CitizenController {
         calendar.set(yearOfBirth, monthOfBirth, dayOfBirth, 0, 0, 0);
         this.birthDate=calendar.getTime();
         this.name=name;
+        this.ontick();
     }
 
-    void ontick(){ // will be called from  Utopia controller each time there is a tick ...
+    abstract public void onTick(); // user must @Override this method. It will be called from the parent method via "this.onTick()"
+
+    final public void ontick(){ // will be called from  Utopia controller each time there is a tick ...
 
         // calculate the age of the citizen on every tick -> is probably not necessary
         long diffInMillies = Math.abs(Main.myController.getUtopiaTime().getTime() - birthDate.getTime());
         long diff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS); // represents the seconds between start of the program and now.
         this.age= Duration.ofSeconds(diff);
+        this.onTick();
 
     }
 
@@ -35,12 +39,16 @@ abstract public class CitizenController {
         this.age= Duration.ofSeconds(diff);
     return (int) this.age.toDays();
     }
-=======
 
-    CitizenController(Date birthDate, String name){
+    @Override
+     final public String toString() {
+        return "{Name='" + name + '\'' +
+                "birthDate=" + birthDate +
+                ", age =" + (int)this.age.toDaysPart()/365 +
+                '}';
+    }
+    }
         this.birthDate=birthDate;
         this.name=name;
-    }
-
->>>>>>> 6527e55c466a827f1530eb38d7a48b85be7d27b4
+    CitizenController(Date birthDate, String name){
 }
