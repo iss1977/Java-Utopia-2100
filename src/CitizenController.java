@@ -32,7 +32,6 @@ abstract public class CitizenController {
         long diff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS); // represents the seconds between start of the program and now.
         this.age = Duration.ofSeconds(diff);
         this.onTick();
-
     }
 
     public int getAgeInDays() { // calculates the age and return it.
