@@ -42,8 +42,6 @@ public class Controller {
 
         if (this.lastUpdateAtSecond % Tester.runTheTestOnEveryThisNumberOfTicks == 0) tester.runDeveloperTest(); // here can we put some test code.
 
-        
-
 
         if (this.lastUpdateAtSecond==2) GlobalStacker.stopUtopia();
     } //  end of tick()  -----------------------------------------------------------------------------\\

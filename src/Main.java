@@ -18,8 +18,6 @@ public class Main {
 
         System.out.println("Controller is alive since " + myController.getStartedAT().toString());
 
-
-
         // this is an endless loop. It will run so long as the controller returns true. It will return false on the next tick() after we call GlobalStacker.stopUtopia()
         boolean endlessloop = true;
         long counter =0 ;
