@@ -1,7 +1,9 @@
+
 import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.Date;
 
 abstract public class CitizenController {
     Date birthDate;
@@ -23,17 +25,22 @@ abstract public class CitizenController {
         this.age= Duration.ofSeconds(diff);
     }
 
+    public CitizenController(Date birthDate, String name) {
+        this.birthDate = birthDate;
+        this.name = name;
+    }
+
     abstract public void onTick(); // user must @Override this method. It will be called from the parent method via "this.onTick()"
 
     final public void ontick(){ // will be called from  Utopia controller each time there is a tick ...
         this.onTick();
     }
 
-    public int getAgeInDays(){ // calculates the age and return it.
+    public int getAgeInDays() { // calculates the age and return it.
         long diffInMillies = Math.abs(Main.myController.getUtopiaTime().getTime() - birthDate.getTime());
         long diff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS); // represents the seconds between start of the program and now.
-        this.age= Duration.ofSeconds(diff);
-    return (int) this.age.toDays();
+        this.age = Duration.ofSeconds(diff);
+        return (int) this.age.toDays();
     }
 
     @Override

@@ -16,10 +16,7 @@ public class Main {
         myController.registerCitizen(new Citizen("Bill Gates", 2037,9,2)); // 5 in total
         myController.generateCitizens(15);
 
-        System.out.println("Controller is alive since "+myController.getStartedAT().toString());
-
-
-
+        System.out.println("Controller is alive since " + myController.getStartedAT().toString());
         // this is an endless loop. It will run so long as the controller returns true. It will return false on the next tick() after we call GlobalStacker.stopUtopia()
         boolean endlessloop = true;
         long counter =0 ;
