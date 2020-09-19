@@ -1,0 +1,16 @@
+diff a/src/ActivityBlueprint.java b/src/ActivityBlueprint.java	(rejected hunks)
+@@ -1,11 +1,13 @@
+ abstract public class ActivityBlueprint {
+     String category;
++    String nameOfThePlace ; // ex: "MC Donalds"
+     String serviceDescription;
+     String createdBy;
+ 
+ 
+-    ActivityBlueprint(String category,String serviceDescription,String createdBy ){ // constructor
++    ActivityBlueprint(String category, String nameOfThePlace, String serviceDescription,String createdBy ){ // constructor
+         this.category=category;
++        this.nameOfThePlace=nameOfThePlace;
+         this.serviceDescription=serviceDescription;
+         this.createdBy=createdBy;
+     }

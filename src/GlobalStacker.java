@@ -16,7 +16,7 @@ public class GlobalStacker {  // this is a collection of methods and variables a
     public static int numberOfRegisteredActivities = 0;
 
     // The registered activities are stored in a hashmap
-    public static HashMap<Integer,ActivityBlueprint> registeredActivities=new HashMap<Integer, ActivityBlueprint>();
+    public static ArrayList<ActivityBlueprint> registeredActivities=new ArrayList<ActivityBlueprint>();
 
     // The registered citizens are stored in an ArrayList. The controller will access this directly
     public static ArrayList<Citizen> registredCitizens = new ArrayList<Citizen>();
@@ -34,9 +34,21 @@ public class GlobalStacker {  // this is a collection of methods and variables a
         return calendar.getTime();
     }
 
+    public static Integer generateRandomInteger(Integer min, Integer max){
+        return (int)Math.round(Math.random()*(max-min)+min);
+    }
+
+    public static void declareServices(){
+        Activity myFoodService;
+        myFoodService = new Activity("Food","Mc Donalds","A nice place to eat some fast food","Sebastian");
+        Main.myController.registerActivity(myFoodService);
+        myFoodService = new Activity("Food","Home","No place like home","Sebastian");
+        Main.myController.registerActivity(myFoodService);
+        myFoodService = new Activity("Food","Fancy Reastaurant","Luxus for the reach people","Sebastian");
+        Main.myController.registerActivity(myFoodService);
+        myFoodService = new Activity("Food","Dreckige Fastfood","Weil ich arm bin un pleite.","Sebastian");
+        Main.myController.registerActivity(myFoodService);
+    }
 
 } // end of class GlobalStacker
 
-class Benefits{
-    static Integer hunger = 1;
-}

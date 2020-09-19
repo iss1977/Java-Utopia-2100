@@ -7,9 +7,12 @@ public class Citizen extends CitizenController {
 // ontick() method of superclass is final, @Override of ontick() method is forbidden
 
     public void onTick(){
-        System.out.println("Citizen \""+this.toString()+"\" had had a tick.... nice.");
+        //System.out.println("Citizen \""+this.toString()+"\" had had a tick.... nice.");
     }
 
+    public void  setProprieties(CitizenModel myCitizenProprieties){
+
+    }
 
     Citizen(Date birthDate, String name) {
         super(birthDate, name);
