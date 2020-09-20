@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Controller {
     private  Date startedAT = new Date(); // used to store the date-time when utopia was started.
 
+    private TickType currentTickType = TickType.UNDEFINED;
 
     public Date getStartedAT() { // getter for startedAT
         return startedAT;
@@ -19,7 +20,7 @@ public class Controller {
         return utopiaTime;
     }
 
-    private long lastUpdateAtSecond=0; // only to see if a second is passed or not since last tick. Only on second change will be a tick on utopia generated
+    private long lastUpdateAtSecond= -1; // only to see if a second is passed or not since last tick. Only on second change will be a tick on utopia generated
     Calendar calendar = Calendar.getInstance(); // will also be used to store the time when utopia was started. Search for other possibilities
 
     public Tester tester=new Tester();
@@ -34,16 +35,35 @@ public class Controller {
     // ----------------------------------|  T h e   T I C K |---------------------------------------\\
     //
     public void tick(){
-
-        // let's tick every citizen and activity
-        for (Citizen citizen: GlobalStacker.registredCitizens) {
-            citizen.ontick();
+        // we check if ever ticked, if that's the case, run the initialisations.
+        if (currentTickType == TickType.UNDEFINED){
+            currentTickType = TickType.FIRSTTICK;
+            tester.firstTick(); // run the init procedure in Tester.
+            currentTickType = TickType.NORMALTICK;
+            this.tickAllCitizensAndActivities();
+            tester.middleTick();
         }
+        else if (currentTickType == TickType.NORMALTICK){ // after the init method, we run the normal tick
+            this.tickAllCitizensAndActivities();
+            tester.middleTick(); // run the middleTick method in tester
+            if (this.lastUpdateAtSecond==3) this.stopUtopia(); // utopia will end on next tick()
+        }
+        else if (currentTickType == TickType.LASTTICK){ // after the init method, we run the normal tick
+            this.tickAllCitizensAndActivities();
+            tester.middleTick(); // run the middleTick method in tester
+            GlobalStacker.utopiaIsRunning = false; // this will cause the cycle method of this class to return false to main() and end the program
+            tester.lastTick();
+        }
+
+
+
+
+
 
         if (this.lastUpdateAtSecond % Tester.runTheTestOnEveryThisNumberOfTicks == 0) tester.runDeveloperTest(); // here can we put some test code.
 
 
-        if (this.lastUpdateAtSecond==2) GlobalStacker.stopUtopia();
+
     } //  end of tick()  -----------------------------------------------------------------------------\\
 
 
@@ -91,15 +111,23 @@ public class Controller {
             return GlobalStacker.registeredActivities.get(GlobalStacker.generateRandomInteger(0,GlobalStacker.registeredActivities.size()-1));
         }
         return null; // if the size of ArrayList activities is zero
+    }
 
+    public ActivityBlueprint getActivityLike(String searchTerm){
+        ActivityBlueprint foundActivity = null;
+        for (ActivityBlueprint activity: GlobalStacker.registeredActivities) {
+            if (activity.getClass().getSimpleName().startsWith(searchTerm))
+                foundActivity = activity;
+        }
+        return foundActivity;
     }
 
 
     public boolean doActivity(ActivityBlueprint activity, Citizen citizen){
         if (activity==null || citizen==null) {
-            System.out.println("!!!!!!!!!!!!!!!!!!!   doActivity(ActivityBlueprint activity, Citizen citizen) in Controller :  NULL reference as parameter. Exiting the method");
+            System.out.println("!!!!!!!!!!!!!!!!!!!   doActivity(ActivityBlueprint activity, Citizen citizen) in Controller :  NULL reference as parameter. Exiting the method."+((citizen==null)?" citizen object is null. ":" citizen object ist OK. ")+((activity==null)?" activity object is null. ":" activity object ist OK. "));
             return false;}
-        System.out.println("The activity "+activity.category+" hat returned an offer of "+activity.getOffer(citizen)+" points.");
+
         System.out.println("The citizen "+citizen.name+","+citizen.age+" old is going to do the activity "+activity.category+","+activity.nameOfThePlace+" because he knows, "+activity.serviceDescription);
     return true;
     }
@@ -107,9 +135,24 @@ public class Controller {
     public void generateCitizens(Integer numberOfCitizens){
         Citizen newCitizen;
         for (int i = 1 ; i<= numberOfCitizens; i++){
-            newCitizen = new Citizen("Random generated name",GlobalStacker.generateRandomInteger(2050,2099),GlobalStacker.generateRandomInteger(1,12),GlobalStacker.generateRandomInteger(1,28));
+            newCitizen = new Citizen(RandomNameList.getRandomName() ,GlobalStacker.generateRandomInteger(2050,2099),GlobalStacker.generateRandomInteger(1,12),GlobalStacker.generateRandomInteger(1,28));
             this.registerCitizen(newCitizen);
         }
+        System.out.println(numberOfCitizens+" had been generated with random names.");
     }
 
+    public void stopUtopia(){
+        System.out.println("STOP UTOPIA WAS CALLED !!!");
+        this.currentTickType= TickType.LASTTICK;
+    }
+
+    public void tickAllCitizensAndActivities(){
+// let's tick every citizen and activity
+        for (Citizen citizen: GlobalStacker.registredCitizens) {
+            citizen.ontick();
+        }
+        for (ActivityBlueprint activity: GlobalStacker.registeredActivities){
+            activity.ontick();
+        }
+    }
   } // end of class

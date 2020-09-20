@@ -22,10 +22,6 @@ public class GlobalStacker {  // this is a collection of methods and variables a
     public static ArrayList<Citizen> registredCitizens = new ArrayList<Citizen>();
 
 
-    // call this to Stop Utopia - current actions will complete first. Ex: citizen.onTick() events.
-    public static void stopUtopia() {System.out.println("Utopia Stopped via GlobalStacker.stopUtopia()");utopiaIsRunning=false;}
-
-
     // this utility is used in CitizenController
     public static Date addSecondsToJavaUtilDate(Date date, int seconds) { // used to add seconds to a date. => utopiaTime
         Calendar calendar = Calendar.getInstance();
@@ -39,15 +35,7 @@ public class GlobalStacker {  // this is a collection of methods and variables a
     }
 
     public static void declareServices(){
-        Activity myFoodService;
-        myFoodService = new Activity("Food","Mc Donalds","A nice place to eat some fast food","Sebastian");
-        Main.myController.registerActivity(myFoodService);
-        myFoodService = new Activity("Food","Home","No place like home","Sebastian");
-        Main.myController.registerActivity(myFoodService);
-        myFoodService = new Activity("Food","Fancy Reastaurant","Luxus for the reach people","Sebastian");
-        Main.myController.registerActivity(myFoodService);
-        myFoodService = new Activity("Food","Dreckige Fastfood","Weil ich arm bin un pleite.","Sebastian");
-        Main.myController.registerActivity(myFoodService);
+
     }
 
 } // end of class GlobalStacker
