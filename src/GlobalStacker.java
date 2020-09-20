@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,9 @@ public class GlobalStacker {  // this is a collection of methods and variables a
 
     // here you find the total number of registered activities ( where superclass is ActivityBlueprint)
     public static int numberOfRegisteredActivities = 0;
+
+    // We need a handler for our Planer
+    public static CitizenPlaner citizenPlaner= new CitizenPlaner();
 
     // The registered activities are stored in a hashmap
     public static ArrayList<ActivityBlueprint> registeredActivities=new ArrayList<ActivityBlueprint>();

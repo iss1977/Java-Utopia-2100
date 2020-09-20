@@ -1,7 +1,5 @@
 public class CitizenModel { // here we store the proprieties of a citizen but also can be part of an offer provided by an activity
 
-    final public Integer DUMM_ABER_REICH = 1;
-    final public Integer DUMM_UND_ARM = 1;
 
     public Proprieties proprieties = new Proprieties();
     public Status  status = new Status();

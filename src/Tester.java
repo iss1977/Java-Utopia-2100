@@ -1,3 +1,6 @@
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class Tester {
 
     static Integer runTheTestOnEveryThisNumberOfTicks = 1; // Change this value to set tick sequence that will run the following method
@@ -63,6 +66,13 @@ public class Tester {
         // custom test
         ActivityBlueprint myCircus = Main.myController.getActivityLike("ActivityCircus3");
         if (myCircus!=null) System.out.println("FOUND MY CIRCUS : "+myCircus.toString());
+
+        GlobalStacker.citizenPlaner.addAppointment(
+                Main.myController.getRandomCitizen(),
+                LocalDateTime.of(2100,01,01,8,0) ,
+                Duration.ofHours(8), TimeUnits.EVERYDAY,
+                myCircus,
+                PlanerStatus.DOONFIRSTOCASION);
 
 
     }

@@ -6,7 +6,8 @@ public class ActivityCircus extends ActivityBlueprint {
     OfferFromEndpointActivity cirkusOffer = null;
 
     // list the subActivities here ->
-    ActivityCircus theCircusBigWheel = new CircusBigWheel();
+    ActivityBlueprint theCircusBigWheel = new CircusBigWheel();
+    ActivityBlueprint theCircusFastFood = new CircusFastFood();
 
 
 
@@ -32,8 +33,8 @@ public class ActivityCircus extends ActivityBlueprint {
         // end of offer
 
         //let's add the CircusWheel and Fastfood to the suboffers.
-        //this.childActivities.add(new CircusBigWheel());
-        //this.childActivities.add(new CircusFastFood());
+        this.childActivities.add(theCircusBigWheel);
+        this.childActivities.add(theCircusFastFood);
 
     }
 
@@ -68,12 +69,12 @@ public class ActivityCircus extends ActivityBlueprint {
 
     // declare some child activities in Circus.
 
-    public class CircusBigWheel extends ActivityCircus{
+    public class CircusBigWheel extends ActivityBlueprint{
 
         OfferFromEndpointActivity bigWhellOffer = null;
 
         CircusBigWheel() {
-            super("The big wheel - Circus" ,"take a ride", 20, "Sebastian");
+            super(ActivityType.ENDPOINTDETAILACTIVITY, "Trill & Fun at the Circus","Circus Big Wheel","if you want some adrenaline",15,"Sebastian");
 
             this.bigWhellOffer = new OfferFromEndpointActivity(); // creates the object to hold the offer data
             this.bigWhellOffer.offertant = this; // store a reference to the offertant ( this activity circus)
@@ -85,18 +86,16 @@ public class ActivityCircus extends ActivityBlueprint {
             this.bigWhellOffer.offerBenefits.citizenModel.proprieties.courage = + 0.1;
             this.bigWhellOffer.offerBenefits.citizenModel.proprieties.socialSkills = - 0.005;
             this.bigWhellOffer.offerBenefits.citizenModel.assets.utopiaDollar = -13.5;
-
-
         }
     }
 
-    public class CircusFastFood extends ActivityCircus{
+    public class CircusFastFood extends ActivityBlueprint{
 
         OfferFromEndpointActivity circusFastFoddOffer = null;
 
 
         CircusFastFood() {
-            super("The fast food - Circus" ,"take a sandvici", 2, "Sebastian");
+            super(ActivityType.ENDPOINTDETAILACTIVITY, "Fast food","Circus fast food","if you get hungry wathing the monkeys",4,"Sebastian");
 
             this.circusFastFoddOffer = new OfferFromEndpointActivity(); // creates the object to hold the offer data
             this.circusFastFoddOffer.offertant = this; // store a reference to the offertant ( this activity circus)
